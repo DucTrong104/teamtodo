@@ -14,6 +14,8 @@ from CreateTask.create_task import create_task
 from UpdateTask.update_task import update_task_menu
 from CompleteTask.complete_task import complete_task_menu
 from DeleteTask.delete_task import delete_task_menu
+from SearchTask.search_task import search_task_menu
+from TaskStatistics.task_statistics import statistics_menu
 from JsonDataStorage.storage import load_tasks, load_deleted_tasks
 
 # ANSI Colors
@@ -49,11 +51,10 @@ def main():
         print(f"  📊 {BOLD}Tổng quan:{RESET} Đang có {GREEN}{BOLD}{len(tasks)}{RESET} task hoạt động ({GREEN}{completed_count} hoàn thành{RESET}) | {YELLOW}{BOLD}{len(deleted)}{RESET} task trong thùng rác\n")
         print(f"""  {BOLD}DANH SÁCH CHỨC NĂNG:{RESET}
     {GREEN}{BOLD}[1]{RESET} ➕  {BOLD}Tạo công việc mới (Create Task){RESET}
-    {YELLOW}{BOLD}[2]{RESET} ✏️   {BOLD}Cập nhật công việc (Update Task){RESET}
-    {GREEN}{BOLD}[3]{RESET} ✅  {BOLD}Đánh dấu hoàn thành (Complete Task){RESET}
-    {RED}{BOLD}[4]{RESET} 🗑️   {BOLD}Xóa & Quản lý Thùng rác (Delete Task & Recycle Bin){RESET}
-    {CYAN}[5]{RESET} 📋  Xem danh sách công việc (View Task)
-    {YELLOW}[0]{RESET} 🚪  Thoát ứng dụng
+    {RED}{BOLD}[2]{RESET} 🗑️   {BOLD}Xóa & Quản lý Thùng rác (Delete Task & Recycle Bin){RESET}
+    {CYAN}[3]{RESET} 📋  Xem danh sách công việc (View Task - Tích hợp nhanh)
+    {BLUE}{BOLD}[4]{RESET} 🔍  {BOLD}Tìm kiếm công việc (Search Task){RESET}
+    {MAGENTA}{BOLD}[5]{RESET} 📊  {BOLD}Thống kê & Báo cáo (Task Statistics){RESET}
 """)
         choice = input(f"  {CYAN}→ Nhập lựa chọn (0-5): {RESET}").strip()
 
@@ -84,6 +85,10 @@ def main():
                     st_str = f"{GREEN}[✔️ Xong]{RESET}" if st == "completed" else f"{YELLOW}[⏳ Chờ]{RESET}"
                     print(f"  #{t.get('id')} {st_str} {c_icon} [{c_label}] {p_label} - {BOLD}{t.get('title')}{RESET}{dl}")
             input(f"\n  {DIM}Nhấn Enter để quay lại menu chính...{RESET}")
+        elif choice == "4":
+            search_task_menu()
+        elif choice == "5":
+            statistics_menu()
         elif choice == "0":
             print(f"\n  {GREEN}Cảm ơn bạn đã sử dụng TeamTodo! Hẹn gặp lại! 👋{RESET}\n")
             break
