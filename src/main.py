@@ -12,6 +12,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 from CreateTask.create_task import create_task
 from DeleteTask.delete_task import delete_task_menu
+from SearchTask.search_task import search_task_menu
+from TaskStatistics.task_statistics import statistics_menu
 from JsonDataStorage.storage import load_tasks, load_deleted_tasks
 
 # ANSI Colors
@@ -47,9 +49,11 @@ def main():
     {GREEN}{BOLD}[1]{RESET} ➕  {BOLD}Tạo công việc mới (Create Task){RESET}
     {RED}{BOLD}[2]{RESET} 🗑️   {BOLD}Xóa & Quản lý Thùng rác (Delete Task & Recycle Bin){RESET}
     {CYAN}[3]{RESET} 📋  Xem danh sách công việc (View Task - Tích hợp nhanh)
+    {BLUE}{BOLD}[4]{RESET} 🔍  {BOLD}Tìm kiếm công việc (Search Task){RESET}
+    {MAGENTA}{BOLD}[5]{RESET} 📊  {BOLD}Thống kê & Báo cáo (Task Statistics){RESET}
     {YELLOW}[0]{RESET} 🚪  Thoát ứng dụng
 """)
-        choice = input(f"  {CYAN}→ Nhập lựa chọn (0-3): {RESET}").strip()
+        choice = input(f"  {CYAN}→ Nhập lựa chọn (0-5): {RESET}").strip()
 
         if choice == "1":
             create_task()
@@ -72,6 +76,10 @@ def main():
                     dl = f" | ⏰ {t.get('deadline')}" if t.get("deadline") else ""
                     print(f"  #{t.get('id')} {c_icon} [{c_label}] {p_label} - {BOLD}{t.get('title')}{RESET}{dl}")
             input(f"\n  {DIM}Nhấn Enter để quay lại menu chính...{RESET}")
+        elif choice == "4":
+            search_task_menu()
+        elif choice == "5":
+            statistics_menu()
         elif choice == "0":
             print(f"\n  {GREEN}Cảm ơn bạn đã sử dụng TeamTodo! Hẹn gặp lại! 👋{RESET}\n")
             break
